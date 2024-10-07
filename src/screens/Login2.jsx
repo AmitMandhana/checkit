@@ -8,7 +8,7 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch("http://localhost:5000/api/logindoctor", {
+        const response = await fetch("https://amit19-1.onrender.com/api/logindoctor", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
