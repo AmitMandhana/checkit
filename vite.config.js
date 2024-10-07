@@ -5,6 +5,12 @@ export default defineConfig({
   plugins: [react()],
   build: {
     sourcemap: false, // Disable source maps for faster builds
+    minify: 'terser', // Use Terser for minification
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console logs in production
+      },
+    },
     rollupOptions: {
       output: {
         manualChunks: {
@@ -23,6 +29,15 @@ export default defineConfig({
     hmr: {
       overlay: false, // Disable HMR overlay to reduce console noise
     },
+    host: '0.0.0.0', // Bind to all IPs (not just localhost)
+    port: process.env.PORT || 5173, // Use PORT from Render or default to 5173
+    proxy: {
+      '/api': {
+        target: 'https://amit19-1.onrender.com', // Backend API URL
+        changeOrigin: true,
+        secure: false, // Only if your backend uses self-signed certificates
+      },
+    },
   },
-  cacheDir: 'node_modules/.vite', // Ensure caching is enabled
+  cacheDir: 'node_modules/.vite', // Ensure caching is enabled for faster builds
 })
